@@ -1,0 +1,199 @@
+{
+  "info": {
+    "_postman_id": "ee6899ef-6dbf-4d77-8066-8669a23cbbd5",
+    "name": "Productos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43595483",
+    "_collection_link": "https://go.postman.co/collection/43595483-ee6899ef-6dbf-4d77-8066-8669a23cbbd5?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Productos",
+      "item": [
+        {
+          "name": "API BCR",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJCQ0NSLVNEREUiLCJzdWIiOiJnZXJzY2hhY29uQGdtYWlsLmNvbSIsImF1ZCI6IlNEREUtU2l0aW9FeHRlcm5vIiwiZXhwIjoyNTM0MDIzMDA4MDAsIm5iZiI6MTc3MDY4OTgwOSwiaWF0IjoxNzcwNjg5ODA5LCJqdGkiOiIxYTUwZDFmYi00ZmUyLTQ1MmItOTgyNi0wY2UxZWVjMDliNGQiLCJlbWFpbCI6ImdlcnNjaGFjb25AZ21haWwuY29tIn0.sns7tj9pniXchcJBk7VS4d2bJleMv9p5nqkWLwJ12H8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://apim.bccr.fi.cr/SDDE/api/Bccr.GE.SDDE.Publico.Indicadores.API/cuadro/491/series?fechaInicio=2026/02/08&fechaFin=2026/02/08&idioma=ES",
+              "protocol": "https",
+              "host": [
+                "apim",
+                "bccr",
+                "fi",
+                "cr"
+              ],
+              "path": [
+                "SDDE",
+                "api",
+                "Bccr.GE.SDDE.Publico.Indicadores.API",
+                "cuadro",
+                "491",
+                "series"
+              ],
+              "query": [
+                {
+                  "key": "fechaInicio",
+                  "value": "2026/02/08"
+                },
+                {
+                  "key": "fechaFin",
+                  "value": "2026/02/08"
+                },
+                {
+                  "key": "idioma",
+                  "value": "ES"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener Todos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7178/api/Producto",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7178",
+              "path": [
+                "api",
+                "Producto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener Producto",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7178/api/Producto/2b5155fa-f30f-4ad0-92b9-149869b25178",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7178",
+              "path": [
+                "api",
+                "Producto",
+                "2b5155fa-f30f-4ad0-92b9-149869b25178"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Agregar Producto",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nombre\": \"Monitor 25 pulgadas\",\r\n  \"descripcion\": \"HP\",\r\n  \"precio\": 25000,\r\n  \"stock\": 250,\r\n  \"codigoBarras\": \"05147372286\",\r\n  \"idSubCategoria\": \"C63167F9-8078-4185-B6B1-91097362F749\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7178/api/Producto",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7178",
+              "path": [
+                "api",
+                "Producto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar Producto",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nombre\": \"Teclado mecanico\",\r\n  \"descripcion\": \"Razer\",\r\n  \"precio\": 55000,\r\n  \"stock\": 15,\r\n  \"codigoBarras\": \"25625550255\",\r\n  \"idSubCategoria\": \"C63167F9-8078-4185-B6B1-91097362F749\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7178/api/Producto/cf31daed-1c1c-4703-ae62-c2b8872b245f",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7178",
+              "path": [
+                "api",
+                "Producto",
+                "cf31daed-1c1c-4703-ae62-c2b8872b245f"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Producto",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7178/api/Producto/2b5155fa-f30f-4ad0-92b9-149869b25178",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7178",
+              "path": [
+                "api",
+                "Producto",
+                "2b5155fa-f30f-4ad0-92b9-149869b25178"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
