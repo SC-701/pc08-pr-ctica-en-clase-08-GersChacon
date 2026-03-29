@@ -1,25 +1,17 @@
 # This workflow will build and push a .NET Core app to an Azure Web App when a commit is pushed to your default branch.
-#
-# To configure this workflow:
-#
-# 1. Download the Publish Profile for your Azure Web App from the Azure Portal
-# 2. Create a secret in your repository named AZURE_WEBAPP_PUBLISH_PROFILE, paste the publish profile contents as the value
-# 3. Update the AZURE_WEBAPP_NAME below with your actual Web App name
-#
-# Generated automatically by PowerShell script on 07/09/2025 22:17:01
 
 name: Build and deploy Web App
 
 env:
-  AZURE_WEBAPP_NAME: webproductogerschacon    # Change this to your Azure Web App name
-  AZURE_WEBAPP_PACKAGE_PATH: './producto.Web/Web'
+  AZURE_WEBAPP_NAME: webproductogerschacon
+  AZURE_WEBAPP_PACKAGE_PATH: './Producto/Producto.WEB/Web'
   DOTNET_VERSION: '8.0'
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - './producto.Web/Web/**'
+      - 'Producto/Producto.WEB/**'
   workflow_dispatch:
 
 permissions:
@@ -51,14 +43,14 @@ jobs:
       - name: Build with dotnet
         run: |
           dotnet build "Producto/Producto.WEB/Abstracciones/Abstracciones.csproj" --configuration Release --no-restore
-          dotnet build "Producto/Producto.WEB/Abstracciones/Web.csproj" --configuration Release --no-restore
-          dotnet build "Producto/Producto.WEB/Abstracciones/Reglas.csproj" --configuration Release --no-restore
+          dotnet build "Producto/Producto.WEB/Reglas/Reglas.csproj" --configuration Release --no-restore
+          dotnet build "Producto/Producto.WEB/Web/Web.csproj" --configuration Release --no-restore
 
       - name: Run tests
         run: dotnet test "Producto/Producto.WEB/Producto.WEB.sln" --no-restore --verbosity normal --configuration Release || echo "No tests found or test execution failed"
 
       - name: dotnet publish
-        run: dotnet publish "Producto/Producto.WEB/Abstracciones/Web.csproj" -c Release -o ./publish --no-restore
+        run: dotnet publish "Producto/Producto.WEB/Web/Web.csproj" -c Release -o ./publish --no-restore
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
