@@ -31,23 +31,14 @@ jobs:
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1
 
-      - name: Create NuGet.Config with GitHub Packages credentials
+      - name: Configurar fuente NuGet de GitHub Packages
         run: |
-          $content = @"
-          <?xml version="1.0" encoding="utf-8"?>
-          <configuration>
-            <packageSources>
-              <add key="github" value="https://nuget.pkg.github.com/SC-701/index.json" />
-            </packageSources>
-            <packageSourceCredentials>
-              <github>
-                <add key="Username" value="${{ github.actor }}" />
-                <add key="ClearTextPassword" value="${{ secrets.PaquetesToken }}" />
-              </github>
-            </packageSourceCredentials>
-          </configuration>
-          "@
-          $content | Out-File -FilePath "Seguridad/Seguridad.API/NuGet.Config" -Encoding utf8
+          nuget sources add `
+            -name "github" `
+            -source "https://nuget.pkg.github.com/SC-701/index.json" `
+            -username ${{ github.actor }} `
+            -password ${{ secrets.GITHUB_TOKEN }} `
+            -StorePasswordInClearText
         shell: powershell
 
       - name: Restore NuGet packages
