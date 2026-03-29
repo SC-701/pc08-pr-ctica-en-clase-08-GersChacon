@@ -46,11 +46,7 @@ jobs:
 
       - name: Build Database Project
         shell: cmd
-        run: |
-          msbuild "Producto/Producto.API/DB/BD.sqlproj" ^
-            /p:Configuration=Release ^
-            /p:Platform="Any CPU" ^
-            /p:OutputPath="%GITHUB_WORKSPACE%\Producto\Producto.API\DB\bin\Release\"
+        run: msbuild "Producto/Producto.API/DB/BD.sqlproj" /p:Configuration=Release /p:Platform="Any CPU"
 
       - name: Verify DACPAC file exists
         shell: powershell
@@ -61,13 +57,8 @@ jobs:
             Write-Host "DACPAC file found!"
             Get-Item $dacpacPath | Format-List
           } else {
-            Write-Host "Files in DB output folder:"
-            $outFolder = Join-Path $env:GITHUB_WORKSPACE "Producto/Producto.API/DB/bin/Release"
-            if (Test-Path $outFolder) {
-              Get-ChildItem $outFolder -Recurse | Format-List
-            } else {
-              Write-Host "Output folder does not exist: $outFolder"
-            }
+            Write-Host "Files found in DB folder:"
+            Get-ChildItem (Join-Path $env:GITHUB_WORKSPACE "Producto/Producto.API/DB") -Recurse -Filter "*.dacpac" | Format-List
             Write-Error "DACPAC file not found at $dacpacPath"
             exit 1
           }
@@ -76,7 +67,7 @@ jobs:
         uses: azure/sql-action@v2
         with:
           connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-          path: '${{ github.workspace }}\${{ env.DACPAC_PATH }}'
+          path: '${{ github.workspace }}/${{ env.DACPAC_PATH }}'
           action: 'publish'
           arguments: '/p:DropObjectsNotInSource=false /p:BlockOnPossibleDataLoss=true /p:IgnoreRoleMembership=true'
 
