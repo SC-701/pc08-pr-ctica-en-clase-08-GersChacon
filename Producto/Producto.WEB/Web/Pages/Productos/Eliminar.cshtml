@@ -1,0 +1,74 @@
+@page
+@model Web.Pages.Productos.EliminarModel
+@{
+    ViewData["Title"] = "Eliminar Producto";
+}
+
+<div class="page-hero" style="background:linear-gradient(135deg,#dc2626 0%,#b91c1c 100%);">
+    <div class="container">
+        <h1><i class="bi bi-trash me-2"></i>Eliminar Producto</h1>
+        <p>Esta acción es permanente y no puede deshacerse.</p>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="container">
+
+        <div class="mb-3">
+            <a class="btn btn-outline-secondary btn-sm" asp-page="./Index">
+                <i class="bi bi-arrow-left me-1"></i>Volver al listado
+            </a>
+        </div>
+
+        <div class="delete-card">
+            <div class="delete-icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <h4 class="fw-bold text-center mb-1">¿Eliminar este producto?</h4>
+            <p class="text-muted text-center small mb-4">Esta acción no puede revertirse.</p>
+
+            <form method="post">
+
+                <dl>
+                    <div class="detail-row">
+                        <dt>@Html.DisplayNameFor(m => m.producto.Nombre):</dt>
+                        <dd>@Html.DisplayFor(m => m.producto.Nombre)</dd>
+                    </div>
+                    <div class="detail-row">
+                        <dt>@Html.DisplayNameFor(m => m.producto.Descripcion):</dt>
+                        <dd>@Html.DisplayFor(m => m.producto.Descripcion)</dd>
+                    </div>
+                    <div class="detail-row">
+                        <dt>@Html.DisplayNameFor(m => m.producto.Precio):</dt>
+                        <dd>₡@Html.DisplayFor(m => m.producto.Precio)</dd>
+                    </div>
+                    <div class="detail-row">
+                        <dt>@Html.DisplayNameFor(m => m.producto.Stock):</dt>
+                        <dd>@Html.DisplayFor(m => m.producto.Stock)</dd>
+                    </div>
+                    <div class="detail-row">
+                        <dt>@Html.DisplayNameFor(m => m.producto.CodigoBarras):</dt>
+                        <dd><code>@Html.DisplayFor(m => m.producto.CodigoBarras)</code></dd>
+                    </div>
+                </dl>
+
+                <div class="d-flex gap-2 mt-4 justify-content-center">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>Sí, eliminar
+                    </button>
+                    <a class="btn btn-outline-secondary" asp-page="./Index">Cancelar</a>
+                </div>
+
+                <input type="hidden" asp-for="producto.Nombre" />
+                <input type="hidden" asp-for="producto.Descripcion" />
+                <input type="hidden" asp-for="producto.Precio" />
+                <input type="hidden" asp-for="producto.Stock" />
+                <input type="hidden" asp-for="producto.CodigoBarras" />
+                <input type="hidden" asp-for="producto.SubCategoria" />
+                <input type="hidden" asp-for="producto.Categoria" />
+
+            </form>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,72 @@
+@page
+@model Web.Pages.Productos.DetalleModel
+@{
+    ViewData["Title"] = "Detalle del Producto";
+}
+
+<div class="page-hero">
+    <div class="container">
+        <h1><i class="bi bi-eye me-2"></i>Detalle del Producto</h1>
+        <p>Información completa del producto seleccionado.</p>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="container">
+
+        <div class="mb-3">
+            <a class="btn btn-outline-secondary btn-sm" asp-page="./Index">
+                <i class="bi bi-arrow-left me-1"></i>Volver al listado
+            </a>
+        </div>
+
+        @if (Model.producto != null)
+        {
+            <div class="detail-card" style="max-width:680px;margin:0 auto;">
+                <div class="detail-header">
+                    <span class="badge-cat mb-2 d-inline-block">
+                        @Html.DisplayFor(m => m.producto.Categoria) &rsaquo; @Html.DisplayFor(m => m.producto.SubCategoria)
+                    </span>
+                    <h3 class="fw-bold mb-0">
+                        <i class="bi bi-box text-primary me-2"></i>@Html.DisplayFor(m => m.producto.Nombre)
+                    </h3>
+                </div>
+                <div class="detail-body">
+                    <dl>
+                        <div class="detail-row">
+                            <dt>Descripción</dt>
+                            <dd>@Html.DisplayFor(m => m.producto.Descripcion)</dd>
+                        </div>
+                        <div class="detail-row">
+                            <dt>Precio</dt>
+                            <dd class="price-tag">₡@Html.DisplayFor(m => m.producto.Precio)</dd>
+                        </div>
+                        <div class="detail-row">
+                            <dt>Stock</dt>
+                            <dd>@Html.DisplayFor(m => m.producto.Stock) unidades</dd>
+                        </div>
+                        <div class="detail-row">
+                            <dt>Código de Barras</dt>
+                            <dd><code>@Html.DisplayFor(m => m.producto.CodigoBarras)</code></dd>
+                        </div>
+                    </dl>
+
+                    <div class="d-flex gap-2 mt-3">
+                        <a class="btn btn-warning" asp-page="./Editar" asp-route-id="@Model.producto.Id">
+                            <i class="bi bi-pencil me-1"></i>Editar
+                        </a>
+                        <a class="btn btn-danger" asp-page="./Eliminar" asp-route-id="@Model.producto.Id">
+                            <i class="bi bi-trash me-1"></i>Eliminar
+                        </a>
+                        <a class="btn btn-outline-secondary" asp-page="./Index">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning">No se encontró el producto.</div>
+        }
+
+    </div>
+</div>

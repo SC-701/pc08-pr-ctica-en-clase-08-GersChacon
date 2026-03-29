@@ -1,0 +1,309 @@
+
+:root {
+    --primary:      #4f46e5;
+    --primary-dark: #4338ca;
+    --primary-light:#eef2ff;
+    --success:      #10b981;
+    --warning:      #f59e0b;
+    --danger:       #ef4444;
+    --bg-page:      #f8fafc;
+    --bg-card:      #ffffff;
+    --text-main:    #1e293b;
+    --text-muted:   #64748b;
+    --border:       #e2e8f0;
+    --radius:       0.75rem;
+    --shadow-sm:    0 1px 3px rgba(0,0,0,.08);
+    --shadow-md:    0 4px 12px rgba(0,0,0,.10);
+    --transition:   .2s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    z-index: 1030;
+}
+
+.brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.brand-text {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+}
+
+.nav-pill {
+    border-radius: 8px;
+    padding: .45rem .9rem !important;
+    color: var(--text-muted) !important;
+    font-weight: 500;
+    font-size: .92rem;
+    transition: background var(--transition), color var(--transition);
+}
+
+.nav-pill:hover,
+.active-pill {
+    background: var(--primary-light) !important;
+    color: var(--primary) !important;
+}
+
+.page-hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    padding: 3rem 0 2.5rem;
+    margin-bottom: 0;
+}
+
+.page-hero .hero-label {
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .8;
+    margin-bottom: .4rem;
+}
+
+.page-hero h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+    letter-spacing: -.03em;
+}
+
+.page-hero p {
+    opacity: .8;
+    font-size: .95rem;
+    margin-bottom: 0;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.section-body {
+    padding: 2.5rem 0;
+}
+
+.product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition), transform var(--transition);
+    height: 100%;
+}
+
+.product-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.product-card .card-body {
+    padding: 1.4rem;
+}
+
+.product-card .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: .3rem;
+}
+
+.product-card .badge-cat {
+    font-size: .72rem;
+    font-weight: 500;
+    padding: .25rem .6rem;
+    border-radius: 99px;
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.product-card .price-tag {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.product-card .stock-badge {
+    font-size: .78rem;
+    color: var(--text-muted);
+}
+
+.form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-card .form-label {
+    font-weight: 500;
+    font-size: .88rem;
+    color: var(--text-main);
+    margin-bottom: .35rem;
+}
+
+.form-card .form-control,
+.form-card .form-select {
+    border-radius: 8px;
+    border-color: var(--border);
+    font-size: .92rem;
+    padding: .55rem .9rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-card .form-control:focus,
+.form-card .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79,70,229,.15);
+}
+
+.detail-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.detail-card .detail-header {
+    background: var(--primary-light);
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-card .detail-body {
+    padding: 1.5rem;
+}
+
+.detail-row {
+    display: flex;
+    align-items: baseline;
+    padding: .6rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-row:last-child { border-bottom: none; }
+
+.detail-row dt {
+    min-width: 160px;
+    font-weight: 600;
+    font-size: .88rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.detail-row dd {
+    margin: 0;
+    font-size: .95rem;
+    color: var(--text-main);
+}
+
+.delete-card {
+    background: var(--bg-card);
+    border: 2px solid #fca5a5;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.delete-card .delete-icon {
+    width: 56px;
+    height: 56px;
+    background: #fef2f2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--danger);
+    font-size: 1.6rem;
+    margin: 0 auto 1rem;
+}
+
+.btn {
+    font-weight: 500;
+    font-size: .88rem;
+    border-radius: 8px;
+    padding: .5rem 1.1rem;
+    transition: all var(--transition);
+}
+
+.btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+.btn-primary:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-success {
+    background: var(--success);
+    border-color: var(--success);
+}
+
+.btn-outline-secondary {
+    border-color: var(--border);
+    color: var(--text-muted);
+}
+.btn-outline-secondary:hover {
+    background: var(--bg-page);
+    color: var(--text-main);
+}
+
+.alert {
+    border-radius: var(--radius);
+    font-size: .92rem;
+}
+
+.footer-bar {
+    background: #fff;
+    border-top: 1px solid var(--border);
+}
+
+.footer-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: .85rem;
+    transition: color var(--transition);
+}
+
+.footer-link:hover {
+    color: var(--primary);
+}
+
+.text-muted { color: var(--text-muted) !important; }
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -.025em;
+    color: var(--text-main);
+}
+.section-subtitle {
+    color: var(--text-muted);
+    font-size: .95rem;
+}

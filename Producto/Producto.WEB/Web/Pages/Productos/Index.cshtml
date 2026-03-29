@@ -1,0 +1,73 @@
+@page
+@model Web.Pages.Productos.IndexModel
+@{
+    ViewData["Title"] = "Listado de Productos";
+}
+
+<div class="page-hero">
+    <div class="container">
+        <h1><i class="bi bi-grid me-2"></i>Catálogo de Productos</h1>
+        <p>Todos los productos registrados en el sistema.</p>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="section-title mb-1">Productos</h2>
+                <p class="section-subtitle mb-0">Gestiona el inventario de productos.</p>
+            </div>
+            <a class="btn btn-primary" asp-page="./Agregar">
+                <i class="bi bi-plus-lg me-1"></i> Nuevo Producto
+            </a>
+        </div>
+
+        @if (Model.productos != null && Model.productos.Any())
+        {
+            <div class="row g-3">
+                @foreach (var producto in Model.productos)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="product-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <span class="badge-cat">@Html.DisplayFor(m => producto.Categoria) &rsaquo; @Html.DisplayFor(m => producto.SubCategoria)</span>
+                                </div>
+                                <h5 class="card-title mt-2">
+                                    <i class="bi bi-box me-1 text-primary"></i>
+                                    @Html.DisplayFor(m => producto.Nombre)
+                                </h5>
+                                <p class="text-muted small mb-2">@Html.DisplayFor(m => producto.Descripcion)</p>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="price-tag">₡@Html.DisplayFor(m => producto.Precio)</span>
+                                    <span class="stock-badge"><i class="bi bi-layers me-1"></i>Stock: @Html.DisplayFor(m => producto.Stock)</span>
+                                </div>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <a class="btn btn-sm btn-outline-primary" asp-page="./Detalle" asp-route-id="@producto.Id">
+                                        <i class="bi bi-eye me-1"></i>Detalle
+                                    </a>
+                                    <a class="btn btn-sm btn-warning" asp-page="./Editar" asp-route-id="@producto.Id">
+                                        <i class="bi bi-pencil me-1"></i>Editar
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" asp-page="./Eliminar" asp-route-id="@producto.Id">
+                                        <i class="bi bi-trash me-1"></i>Eliminar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info d-flex align-items-center gap-2" role="alert">
+                <i class="bi bi-info-circle-fill fs-5"></i>
+                <span>No hay productos registrados aún. <a asp-page="./Agregar" class="alert-link">Agregar el primero</a>.</span>
+            </div>
+        }
+
+    </div>
+</div>
