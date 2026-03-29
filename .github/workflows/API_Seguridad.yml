@@ -16,7 +16,7 @@ jobs:
   build-and-deploy:
     runs-on: windows-latest
     environment:
-      name: 'Production-Database'
+      name: 'Production'
     steps:
       - uses: actions/checkout@v4
 
@@ -30,7 +30,7 @@ jobs:
           dotnet nuget add source
           "https://nuget.pkg.github.com/SC-701/index.json"
           --name "Paquetes"
-          --username "GersChacon"
+          --username "${{ github.actor }}"
           --password "${{ secrets.PAQUETESTOKEN }}"
           --store-password-in-clear-text
 
