@@ -30,7 +30,7 @@ jobs:
           dotnet nuget add source
           "https://nuget.pkg.github.com/SC-701/index.json"
           --name "Paquetes"
-          --username "${{ github.actor }}"
+          --username "GersChacon"
           --password "${{ secrets.PAQUETESTOKEN }}"
           --store-password-in-clear-text
 
