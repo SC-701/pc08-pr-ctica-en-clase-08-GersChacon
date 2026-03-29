@@ -12,15 +12,16 @@
 name: Deploy Producto Database to Azure SQL
 
 env:
-  AZURE_SQL_SERVER: gerschacondb.database.windows.net  # Tu servidor SQL de Azure (ejemplo: vehiculo-db-server.database.windows.net)
+  AZURE_SQL_SERVER: gerschacondb.database.windows.net  # Tu servidor SQL de Azure (ejemplo: producto-db-server.database.windows.net)
   AZURE_SQL_DATABASE: Productos    # Nombre de tu base de datos
   DACPAC_PATH: 'Producto.API/DB/bin/Release/BD.dacpac'
+
   
 on:
   push:
     branches: [ "main" ]
     paths:
-      - 'Producto/Producto.API/DB/**'
+      - 'Producto.API/DB/**'
   workflow_dispatch:
 
 permissions:
@@ -42,11 +43,11 @@ jobs:
         uses: NuGet/setup-nuget@v1
 
       - name: Restore NuGet packages
-        run: nuget restore "Producto/Producto.API/Producto.API.sln"
+        run: nuget restore "Producto.API/Producto.API.sln"
 
       - name: Build Database Project
         run: |
-          msbuild "Producto/Producto.API/DB/BD.sqlproj" /p:Configuration=Release /p:Platform="Any CPU" /p:OutputPath="./bin/Release/"
+          msbuild "Producto.API/DB/BD.sqlproj" /p:Configuration=Release /p:Platform="Any CPU" /p:OutputPath="./bin/Release/"
         shell: cmd
 
       - name: Verify DACPAC file exists
