@@ -27,6 +27,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          source-url: https://nuget.pkg.github.com/SC-701/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up dependency caching for faster builds
         uses: actions/cache@v3
@@ -37,8 +40,6 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: Restore dependencies
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd "Producto/Producto.API"
           dotnet restore "Abstracciones/Abstracciones.csproj"
