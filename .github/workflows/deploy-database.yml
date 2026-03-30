@@ -1,44 +1,37 @@
-# This workflow will deploy SQL Server Database Project to Azure SQL Database
 name: Deploy Producto Database to Azure SQL
-
 env:
   AZURE_SQL_SERVER: gerschacondb.database.windows.net
   AZURE_SQL_DATABASE: Productos
   DACPAC_PATH: 'Producto/Producto.API/DB/bin/Release/BD.dacpac'
-
 on:
   push:
     branches: [ "main" ]
     paths:
       - 'Producto/Producto.API/DB/**'
   workflow_dispatch:
-
 permissions:
   contents: read
-
+  packages: read
 jobs:
   build-and-deploy-database:
     runs-on: windows-latest
     environment:
       name: 'Production-Database'
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
-
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1
-
+      - name: Authenticate GitHub Packages
+        run: nuget sources add -name "github" -source "https://nuget.pkg.github.com/SC-701/index.json" -username "GersChacon" -password "${{ secrets.GITHUB_TOKEN }}" -StorePasswordInClearText
+        shell: cmd
       - name: Restore NuGet packages
         run: nuget restore "Producto/Producto.API/Producto.API.sln"
-
       - name: Build Database Project
         run: |
           msbuild "Producto/Producto.API/DB/BD.sqlproj" /p:Configuration=Release /p:Platform="Any CPU" /p:OutputPath="./bin/Release/"
         shell: cmd
-
       - name: Verify DACPAC file exists
         run: |
           if (Test-Path "${{ env.DACPAC_PATH }}") {
@@ -49,7 +42,6 @@ jobs:
             exit 1
           }
         shell: powershell
-
       - name: Deploy to Azure SQL Database
         uses: azure/sql-action@v2
         with:
@@ -57,7 +49,6 @@ jobs:
           path: ${{ env.DACPAC_PATH }}
           action: 'publish'
           arguments: '/p:DropObjectsNotInSource=false /p:BlockOnPossibleDataLoss=true /p:IgnoreRoleMembership=true'
-
       - name: Database Deployment Summary
         run: |
           Write-Host "Database deployment completed successfully!"

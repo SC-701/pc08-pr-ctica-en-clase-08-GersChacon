@@ -1,6 +1,4 @@
-# This workflow will build and push a .NET Core app to an Azure Web App when a commit is pushed to your default branch.
-
-name: Deploy producto API to Azure
+name: Deploy Producto API to Azure
 
 env:
   AZURE_WEBAPP_NAME: apiproductogerschacon
@@ -16,6 +14,7 @@ on:
 
 permissions:
   contents: read
+  packages: read
 
 jobs:
   build:
@@ -38,6 +37,8 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: Restore dependencies
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd "Producto/Producto.API"
           dotnet restore "Abstracciones/Abstracciones.csproj"
