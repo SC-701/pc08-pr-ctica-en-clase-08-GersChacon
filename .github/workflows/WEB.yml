@@ -1,34 +1,29 @@
-# This workflow will build and push a .NET Core app to an Azure Web App when a commit is pushed to your default branch.
-
 name: Build and deploy Web App
-
 env:
   AZURE_WEBAPP_NAME: webproductogerschacon
   AZURE_WEBAPP_PACKAGE_PATH: './Producto/Producto.WEB/Web'
   DOTNET_VERSION: '8.0'
-
 on:
   push:
     branches: [ "main" ]
     paths:
       - 'Producto/Producto.WEB/**'
   workflow_dispatch:
-
 permissions:
   contents: read
-
+  packages: read
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-
+          source-url: https://nuget.pkg.github.com/SC-701/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up dependency caching for faster builds
         uses: actions/cache@v3
         with:
@@ -36,28 +31,22 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
-
       - name: Restore dependencies
         run: dotnet restore "Producto/Producto.WEB/Producto.WEB.sln"
-
       - name: Build with dotnet
         run: |
           dotnet build "Producto/Producto.WEB/Abstracciones/Abstracciones.csproj" --configuration Release --no-restore
           dotnet build "Producto/Producto.WEB/Reglas/Reglas.csproj" --configuration Release --no-restore
           dotnet build "Producto/Producto.WEB/Web/Web.csproj" --configuration Release --no-restore
-
       - name: Run tests
         run: dotnet test "Producto/Producto.WEB/Producto.WEB.sln" --no-restore --verbosity normal --configuration Release || echo "No tests found or test execution failed"
-
       - name: dotnet publish
         run: dotnet publish "Producto/Producto.WEB/Web/Web.csproj" -c Release -o ./publish --no-restore
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
           path: ./publish
-
   deploy:
     permissions:
       contents: none
@@ -66,13 +55,11 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
